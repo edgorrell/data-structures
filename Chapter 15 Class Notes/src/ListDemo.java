@@ -7,14 +7,11 @@ public class ListDemo{
         list.add("one"); list.add("two"); list.add("three"); list.add("four");
         ListIterator<String> it = list.listIterator();
 
-        while(it.hasNext()){
-            it.next();
-            if(Math.random() < 0.5){
-                it.remove();
+        for(String str : list){
+            if(str.equals("three")){
+                list.remove(str);
             }
         }
-        while(it.hasPrevious()){
-            System.out.println(it.previous());
-        }
+        System.out.println(list);
     }
 }
