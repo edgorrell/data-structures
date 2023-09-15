@@ -9,13 +9,12 @@ public class ReverseTester
     public static void main(String[] args)
     {
         LinkedList<String> employeeNames = new LinkedList<>();
-        employeeNames.addLast("Dick");
-        employeeNames.addLast("Harry");
-        employeeNames.addLast("Romeo");
-        employeeNames.addLast("Tom");
+        employeeNames.addLast("one");
+        employeeNames.addLast("two");
+        employeeNames.addLast("three");
+        employeeNames.addLast("four");
 
         ListUtil.reverse(employeeNames);
         System.out.println(employeeNames);
-        System.out.println("Expected: [Tom, Romeo, Harry, Dick]");
     }
 }
