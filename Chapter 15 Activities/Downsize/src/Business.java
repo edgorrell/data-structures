@@ -24,7 +24,8 @@ public class Business{
                 i++;
             }
         }
-        /* I rewrote it
+        // I rewrote it
+        /*
         for(int i = employeeNames.size()-1; i > -1; i--){
             if((i+1)%n == 0){
                 employeeNames.remove(i);
