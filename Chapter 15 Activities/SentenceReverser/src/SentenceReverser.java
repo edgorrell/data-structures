@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.regex.Pattern;
 
 /**
  * Class for reversing the order of a sentence.
@@ -12,17 +13,13 @@ public class SentenceReverser
      * @param sentence Sentence to be reversed.
      * @return reversed sentence.
     */
-    public static String reverse(String sentence)
-    {
-    	Scanner scanner = new Scanner(sentence);
-    	
-        // Complete this method. Use a Stack.
-        ...
+    public static String reverse(String sentence){
+        Pattern p = Pattern.compile(".");
+        String[] strs = p.split(sentence);
+        String final;
 
+        for()
 
-
-
-
-
+        return "";
     }
 }
