@@ -49,25 +49,34 @@ public class Sudoku{
     }
 
     public Sudoku(Sudoku s){
-        this.size = s.size; this.squareSize = s.squareSize; this.area = s.area;
         this.board = s.board;
+        this.size = s.size; this.squareSize = s.squareSize; this.area = s.area;
         this.rows = s.rows; this.cols = s.cols; this.squares = s.squares;
         compileSets();
     }
 
     public boolean solve(){
-        int[] coords = getEmpty();
+        if(finished()){
+            return true;
+        }
 
-        for (int num = 1; num < 10; num++) {
+        int[] coords = getEmpty();
+        if(coords == null){
+            return true;
+        }
+
+        for(Integer num : getOptions(coords)) {
             if (check(coords, num)) {
                 this.board[coords[0]][coords[1]] = num;
-                compileSets();
-                if (new Sudoku(this).solve())
+                if(finished()){
                     return true;
-            } else {
-                this.board[coords[0]][coords[1]] = 0;
+                } else if (solve()){
+                    return true;
+                } else{
+                    this.board[coords[0]][coords[1]] = 0;
+                    continue;
+                }
             }
-            compileSets();
         }
         return false;
     }
@@ -106,36 +115,31 @@ public class Sudoku{
     }
 
     public boolean check(int[] coords, Integer num){
-        try{
-            if(getRow(coords).contains(num))){
-                return false;
-            }
-            if(getCol(coords).contains(num)){
-                return false;
-            }
-            if(getSquare(coords).contains(num)){
-                return false;
-            }
-        } catch (Exception e){
-            System.out.println(this);
-            System.exit(-1);
+        Set<Integer> tempSet = new HashSet<>();
+
+        tempSet.addAll(getRow(coords));
+        tempSet.addAll(getCol(coords));
+        tempSet.addAll(getSquare(coords));
+
+        if(tempSet.contains(num)){
+            return false;
         }
         return true;
     }
 
     public boolean finished(){
         for(Set<Integer> row : this.rows){
-            if(!row.equals(this.nums)){
+            if(row.size() != nums.size()){
                 return false;
             }
         }
         for(Set<Integer> col : this.cols){
-            if(!col.equals(this.nums)){
+            if(col.size() != nums.size()){
                 return false;
             }
         }
         for(Set<Integer> square : this.squares){
-            if(!square.equals(this.nums)){
+            if(square.size() != nums.size()){
                 return false;
             }
         }
@@ -144,6 +148,13 @@ public class Sudoku{
 
     public void compileSets(){
         Set<Integer> tempSet;
+        
+        // create a hash set for [1..9] (this.nums)
+        this.nums = new HashSet<Integer>();
+        for(int i = 0; i < size; i++){
+            this.nums.add(i);
+        }
+
         // create the list of sets for each row (this.rows)
         this.rows = new ArrayList<Set<Integer>>();
         for(int i = 0; i < size; i++){
@@ -167,17 +178,14 @@ public class Sudoku{
         // create the list of sets for each square (this.squares)
         this.squares = new ArrayList<Set<Integer>>();
         for(int i = 0; i < size; i++){
-            tempSet = new HashSet<Integer>();
-            for(int j = 0; j < size; j++){
-                tempSet.add(this.board[squareSize*rowOffset[j]+rowOffset[j]][squareSize*colOffset[j]+colOffset[j]]);
-            }
-            this.squares.add(tempSet);
+            this.squares.add(new HashSet<Integer>());
         }
-
-        // create a hash set for [1..9] (this.nums)
-        this.nums = new HashSet<Integer>();
         for(int i = 0; i < size; i++){
-            this.nums.add(i);
+            for(int j = 0; j < size; j++){
+                int squareX = (int)(i/squareSize);
+                int squareY = (int)(j/squareSize);
+                squares.get(squareX + squareY*squareSize).add(board[i][j]);
+            }
         }
     }
 
