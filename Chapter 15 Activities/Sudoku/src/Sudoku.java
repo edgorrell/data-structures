@@ -65,7 +65,7 @@ public class Sudoku{
                 if (new Sudoku(this).solve())
                     return true;
             }
-            board[coords[0]][coords[1]] = 0;
+            this.board[coords[0]][coords[1]] = 0;
             compileSets();
         }
         return false;
@@ -106,20 +106,15 @@ public class Sudoku{
 
     public boolean check(int[] coords, Integer num){
         try{
-        Set<Integer> tempSet;
-
-        tempSet = getRow(coords);
-        if(getRow(coords).equals(tempSet.add(num))){
-            return false;
-        }
-        tempSet = getCol(coords);
-        if(getCol(coords).equals(tempSet.add(num))){
-            return false;
-        }
-        tempSet = getSquare(coords);
-        if(getSquare(coords).equals(tempSet.add(num))){
-            return false;
-        }
+            if(getRow(coords).contains(num))){
+                return false;
+            }
+            if(getCol(coords).contains(num)){
+                return false;
+            }
+            if(getSquare(coords).contains(num)){
+                return false;
+            }
         } catch (Exception e){
             System.out.println(this);
             System.exit(-1);
