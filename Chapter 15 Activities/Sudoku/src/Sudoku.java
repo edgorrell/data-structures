@@ -64,8 +64,9 @@ public class Sudoku{
                 compileSets();
                 if (new Sudoku(this).solve())
                     return true;
+            } else {
+                this.board[coords[0]][coords[1]] = 0;
             }
-            this.board[coords[0]][coords[1]] = 0;
             compileSets();
         }
         return false;
