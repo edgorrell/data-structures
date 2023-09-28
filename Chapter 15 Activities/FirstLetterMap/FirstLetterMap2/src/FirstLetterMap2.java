@@ -8,7 +8,7 @@ import java.io.*;
  * alphabetical order. Update the map by modifying
  * Worked Example 15.1.
 */
-public class FirstLetterMap
+public class FirstLetterMap2
 {
     public static void main(String[] args)
     {
