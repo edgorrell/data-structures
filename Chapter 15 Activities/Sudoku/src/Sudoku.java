@@ -48,37 +48,26 @@ public class Sudoku{
         compileSets();
     }
 
-    public Sudoku(int[][] board){
-        this.size = board[0].length;
-        this.squareSize = (int)(Math.sqrt(size));
-        area = size*size;
-        this.board = board;
+    public Sudoku(Sudoku s){
+        this.size = s.size; this.squareSize = s.squareSize; this.area = s.area;
+        this.board = s.board;
+        this.rows = s.rows; this.cols = s.cols; this.squares = s.squares;
         compileSets();
     }
 
     public boolean solve(){
-        if(finished()){
-            return true;
-        }
-        
         int[] coords = getEmpty();
-        if(coords == null){ return true;}
-        Set<Integer> options = getOptions(coords);
-        if(options.size() == 0){ return false; }
 
-
-        for(Integer num : getOptions(coords)){
-            if(check(coords, num)){
-                this.board[coords[0]][coords[1]] = num.intValue();
-                Sudoku s = new Sudoku(board);
-                if(s.solve()){
+        for (int num = 1; num < 10; num++) {
+            if (check(coords, num)) {
+                this.board[coords[0]][coords[1]] = num;
+                compileSets();
+                if (new Sudoku(this).solve())
                     return true;
-                } else {
-                    continue;
-                }
             }
+            board[coords[0]][coords[1]] = 0;
+            compileSets();
         }
-
         return false;
     }
 
@@ -91,13 +80,9 @@ public class Sudoku{
     }
 
     public Set<Integer> getSquare(int[] coords){
-        for(int i = 0; i < size; i++){
-            if(coords[0] <= (this.rowOffset[i]+1)*squareSize && 
-               coords[1] <= (this.colOffset[i]+1)*squareSize){
-                return this.squares.get(i);
-            }
-        }
-        return null;
+        int squareX = (int)(coords[1]/squareSize);
+        int squareY = (int)(coords[0]/squareSize);
+        return this.squares.get(squareX + squareY*squareSize);
     }
 
     public Set<Integer> getOptions(int[] coords){
@@ -120,21 +105,25 @@ public class Sudoku{
     }
 
     public boolean check(int[] coords, Integer num){
+        try{
         Set<Integer> tempSet;
 
         tempSet = getRow(coords);
-        if(tempSet.equals(tempSet.add(num))){
+        if(getRow(coords).equals(tempSet.add(num))){
             return false;
         }
         tempSet = getCol(coords);
-        if(tempSet.equals(tempSet.add(num))){
+        if(getCol(coords).equals(tempSet.add(num))){
             return false;
         }
         tempSet = getSquare(coords);
-        if(tempSet.equals(tempSet.add(num))){
+        if(getSquare(coords).equals(tempSet.add(num))){
             return false;
         }
-
+        } catch (Exception e){
+            System.out.println(this);
+            System.exit(-1);
+        }
         return true;
     }
 
