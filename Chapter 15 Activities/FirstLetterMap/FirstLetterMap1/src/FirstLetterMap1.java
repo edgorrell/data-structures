@@ -10,7 +10,7 @@ import java.io.*;
 */
 public class FirstLetterMap1{
     public static void main(String[] args){
-        String filename = "src/test1.txt";
+        String filename = "Chapter 15 Activities\\FirstLetterMap\\FirstLetterMap1\\src\\test1.txt";
 
         try (Scanner in = new Scanner(new File(filename))){
 

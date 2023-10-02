@@ -66,11 +66,10 @@ public class Sudoku{
         }
 
         for(Integer num : getOptions(coords)) {
-            if (check(coords, num)) {
+            if(check(coords, num)){
                 this.board[coords[0]][coords[1]] = num;
-                if(finished()){
-                    return true;
-                } else if (solve()){
+                compileSets();
+                if (solve()){
                     return true;
                 } else{
                     this.board[coords[0]][coords[1]] = 0;

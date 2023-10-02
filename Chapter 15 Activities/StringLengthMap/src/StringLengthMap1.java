@@ -22,14 +22,8 @@ public class StringLengthMap1{
                 Integer i = word.length();
 
                 // Update the map here
-                // Use the Java 8 merge method
-                if(map.get(i) == null){
-                    map.put(i," " + word);
-                    continue;
-                } else if(!map.get(i).contains(" " + word)){
-                    map.merge(i,word,(old, next) -> old + ", " + next);
-                    continue;
-                }
+                // Modify Worked Example 15.1
+                
             }
 
             // Print the strings, in increasing order of their length
