@@ -5,12 +5,11 @@ import java.util.Scanner;
  * Class for simulating a driveway and a street, using stacks
  * of cars with license plate numbers as representation.
 */
-public class Driveway
-{
+public class Driveway{
     /**
       * Stack representing the cars in the driveway.
     */
-    private Stack<Integer> driveway;
+    private Stack<Integer> drive;
     /**
       * Stack representing the cars in the street.
     */
@@ -19,52 +18,67 @@ public class Driveway
     /**
       * Constructor.
     */
-    public Driveway()
-    {
-        // Complete the constructor
-        ...
-
-
+    public Driveway(){
+      // Complete the constructor
+      drive = new Stack<Integer>();
+      street = new Stack<Integer>();
     }
 
     /**
       * Add the given license plate to the driveway.
       *
-      * @param licensePlate number of license plate.
+      * @param plate number of license plate.
     */
-    public void add(int licensePlate)
-    {
-        // Complete this method
-        ...
-
-
+    public void add(int plate){
+      drive.push(plate);
+      print();
     }
 
     /**
       * Remove the given license plate from the driveway.
       *
-      * @param licensePlate number of license plate.
+      * @param num number of license plate.
     */
-    public void remove(int licensePlate)
-    {
-        // Complete this method
-        ...
-
-
+    public void remove(int num){
+      while(drive.peek() != num){
+        street.push(drive.pop());
+        print();
+      }
+      drive.pop();
+      print();
+      while(street.size() > 0){
+        drive.add(street.pop());
+        print();
+      }
     }
 
     /**
       * Prints the driveway and street details to the screen.
     */
-    public void print()
-    {
-        System.out.println("In Driveway, starting at first in (one license plate per line):");
+    public void print(){
+        Stack<Integer> drive = (Stack<Integer>)this.drive.clone();
+        Stack<Integer> street = (Stack<Integer>)this.street.clone();
+        Stack<Integer> temp;
+
+        System.out.println();
+        System.out.print("Driveway: ");
         // Print the cars in the driveway here
-        ...
+        temp = new Stack<Integer>();
+        while(!drive.isEmpty()){
+          temp.add(drive.pop());
+        }
+        while(!temp.isEmpty()){
+          System.out.print(temp.pop() + ", ");
+        }
+        System.out.println();
 
-        System.out.println("In Street, starting at first in (one license plate per line):");
-        // Print the cars in the street here
-        ...
-
+        System.out.print("Street: ");
+        temp = new Stack<Integer>();
+        while(!street.isEmpty()){
+          temp.add(street.pop());
+        }
+        while(!temp.isEmpty()){
+          System.out.print(temp.pop() + ", ");
+        }
     }
 }
