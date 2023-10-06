@@ -60,7 +60,6 @@ public class Driveway{
         Stack<Integer> street = (Stack<Integer>)this.street.clone();
         Stack<Integer> temp;
 
-        System.out.println();
         System.out.print("Driveway: ");
         // Print the cars in the driveway here
         temp = new Stack<Integer>();
@@ -80,5 +79,6 @@ public class Driveway{
         while(!temp.isEmpty()){
           System.out.print(temp.pop() + ", ");
         }
+        System.out.println("\n--------------------");
     }
 }

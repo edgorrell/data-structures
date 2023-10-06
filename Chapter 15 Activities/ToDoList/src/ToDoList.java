@@ -9,25 +9,21 @@ import java.util.Scanner;
  * The quit command quits the program. 
  * Use a priority queue in your solution.
 */
-public class ToDoList
-{
+public class ToDoList{
     // Instance variable(s)
-    . . .
+    PriorityQueue<Task>queue = new PriorityQueue<Task>();
 
     /**
      * Constructor
     */
-    public ToDoList()
-    {
+    public ToDoList(){
         // Complete this
-        . . .
     }
 
     /**
      * Display a menu and accepts commands.
      */
-    public void run()
-    {
+    public void run(){
         String option = "";
         System.out.println("To Do List - Please enter an option");
         System.out.println("     add priority description (add a new task)");
@@ -37,8 +33,7 @@ public class ToDoList
         
         Scanner in = new Scanner(System.in);
         
-        do
-        {
+        do{
             System.out.print("> ");
             option = in.nextLine();
             if (option.startsWith("add"))
@@ -57,10 +52,12 @@ public class ToDoList
      *
      * @param optionStr the option line
     */
-    public void addTask(String optionStr)
-    {
+    public void addTask(String str){
         // Complete this method
-        . . .
+        Task t = new Task(str.charAt(4), str.substring(5));
+        queue.add(t);
+
+
             
             
     }
@@ -74,7 +71,7 @@ public class ToDoList
         Task next = null;
         
         // Complete this method
-        . . .
+        next = queue.remove();
         
         
         if (next == null)
