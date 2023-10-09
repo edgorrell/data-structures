@@ -54,24 +54,27 @@ public class ToDoList{
     */
     public void addTask(String str){
         // Complete this method
-        Task t = new Task(str.charAt(4), str.substring(5));
-        queue.add(t);
+        if(Character.isDigit(str.charAt(4))){
+            Task t = new Task(str.charAt(4), str.substring(5));
+                    queue.add(t);
 
-
-            
-            
+        } else {
+            System.out.println("Priority must be an integer 0-9");
+            return;
+        }
     }
 
     /**
      * Get the next highest priority task and
      * display the description to the user.
     */
-    public void nextTask()
-    {
+    public void nextTask(){
         Task next = null;
         
         // Complete this method
-        next = queue.remove();
+        if(!queue.isEmpty()){
+            next = queue.remove();
+        }
         
         
         if (next == null)
