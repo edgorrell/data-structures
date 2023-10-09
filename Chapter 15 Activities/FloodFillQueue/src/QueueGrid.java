@@ -1,19 +1,19 @@
 import java.util.*;
 
-public class Grid{
+public class QueueGrid{
     private static final int SIZE = 10;
     int[][] grid = new int[SIZE][SIZE];
-    Stack<int[]> stack = new Stack<int[]>();
+    Queue<int[]> q = new LinkedList<int[]>();
     int num = 0;
+
     /**
      * Flood fill, starting with the given row and column.
     */
     public void fill(int row, int col){
-        if(this.num == 0){num = 1;}
-        if(stack.size() > 0){stack.pop();}
-        if(grid[row][col] == 0){
-            grid[row][col] = num;
+        if(q.size() > 0){q.remove(q.peek());}
+        if(grid[row][col] < 1){
             num++;
+            grid[row][col] = num;
         }
         int[] ro = {1,0,-1,0};
         int[] co = {0,1,0,-1};
@@ -23,21 +23,21 @@ public class Grid{
                 continue;
             }
             if(grid[row + ro[i]][col + co[i]] == 0){
-                stack.push(new int[] {row + ro[i], col + co[i]});
+                grid[row + ro[i]][col + co[i]] = -1;
+                q.add(new int[] {row + ro[i], col + co[i]});
             }
         }
-        if(stack.size() > 0){
-            fill(stack.peek()[0], stack.peek()[1]);
+        if(q.size() > 0){
+            fill(q.peek()[0], q.peek()[1]);
         }
     }
 
-    @Override
     public String toString(){
         String r = "";
         for (int i = 0; i < SIZE; i++)
         {
             for (int j = 0; j < SIZE; j++)
-                r = r + String.format("%4d", grid[i][j]);
+                r = r + String.format("%3d", grid[i][j]);
             r = r + "\n";
         }
         return r;

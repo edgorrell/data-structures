@@ -14,7 +14,7 @@ import java.util.Stack;
 */
 public class HTMLChecker{
     public static void main(String[] args){
-        String filename = "Chapter 15 Activities\\HTMLChecker\\src\\TagSample1.html";
+        String filename = "Chapter 15 Activities\\HTMLChecker\\src\\TagSample2.html";
         Scanner scan = new Scanner(System.in);
         Stack<String> stack = new Stack<String>();
         String str;
