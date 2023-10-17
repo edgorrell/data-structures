@@ -4,8 +4,7 @@
    standard java.util.ListIterator interface. The methods for
    backward traversal are not included.
 */
-public interface ListIterator
-{  
+public interface ListIterator<T>{  
    /**
       Moves the iterator past the next element.
       @return the traversed element
@@ -23,17 +22,17 @@ public interface ListIterator
       and moves the iterator past the inserted element.
       @param element the element to add
    */
-   void add(Object element);
+   boolean add(T item);
       
    /**
       Removes the last traversed element. This method may
       only be called after a call to the next() method.
    */
-   void remove();
+   boolean remove();
 
    /**
       Sets the last traversed element to a different value. 
       @param element the element to set
    */
-   void set(Object element);
+   boolean set(T item);
 }

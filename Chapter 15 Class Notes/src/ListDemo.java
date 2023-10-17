@@ -7,6 +7,7 @@ public class ListDemo{
         list.add("one"); list.add("two"); list.add("three"); list.add("four");
         ListIterator<String> it = list.listIterator();
 
+
         for(String str : list){
             if(str.equals("three")){
                 list.remove(str);
