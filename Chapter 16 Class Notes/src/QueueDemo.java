@@ -1,9 +1,6 @@
-public class QueueDemo
-{
-    public static void main(String[] args)
-    {
-        /*
-        CircularArrayQueue queue = new CircularArrayQueue();
+public class QueueDemo{
+    public static void main(String[] args){
+        CircularQueue<String> queue = new CircularQueue<String>();
 
         queue.add("Tom");
         queue.add("Diana");
@@ -14,7 +11,7 @@ public class QueueDemo
         queue.add("Juliet");
         queue.add("Maria");
 
-        while(!queue.empty())
+        while(!queue.isEmpty())
         {
             System.out.println(queue.remove());
         }
