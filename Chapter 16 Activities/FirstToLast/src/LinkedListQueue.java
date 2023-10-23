@@ -6,27 +6,25 @@
 */
 public class LinkedListQueue
 {
-    private Node head;
-    private Node tail;
+    private Node head = null;
+    private Node tail = null;
 
     /**
         Constructs an empty queue.
     */
-    public LinkedListQueue()
-    {
-        head = null;
-        tail = null;
+    public LinkedListQueue(){
+
     }
 
     /**
         Moves the head of the queue to the tail.
     */
-    public void firstToLast()
-    {
-        . . .
-
-
-
+    public void firstToLast(){
+        Node n = head;
+        head = n.next;
+        tail.next = n;
+        tail = n;
+        n.next = null;
     }
 
     /**
@@ -79,8 +77,7 @@ public class LinkedListQueue
         return element;
     }
 
-    class Node
-    {
+    class Node{
         public Object data;
         public Node next;
     }

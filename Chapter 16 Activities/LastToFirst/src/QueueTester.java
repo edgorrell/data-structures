@@ -17,10 +17,10 @@ public class QueueTester
         while (!q.empty())
         {
             System.out.print(q.remove() + " ");
-            if(i >= 5)
-            {
-                System.out.println("More elements than expected in the queue, " +
-                    "perhaps the list became circular?");
+            if(i >= 5){
+                System.out.println("More elements than expected in the queue.");
+                System.out.println("Perhaps the list became circular?");
+                return;
             }
             i++;
         }

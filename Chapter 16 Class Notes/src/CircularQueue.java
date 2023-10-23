@@ -30,6 +30,7 @@ public class CircularQueue<T>{
         @param newElement the element to add
     */
     public void add(T item){
+        growIfNecessary();
         this.size++;
         this.elements[this.tail] = item;
         this.tail = tail++ % this.elements.length;
