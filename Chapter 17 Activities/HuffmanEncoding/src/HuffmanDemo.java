@@ -1,7 +1,7 @@
-public class HuffmanDemo
-{
-   public static void main(String[] args)
-   {
+import java.util.*;
+
+public class HuffmanDemo{
+   public static void main(String[] args){
       Map<Character, Integer> frequencyMap = new HashMap<>();
       frequencyMap.put('A', 2089);
       frequencyMap.put('E', 576);
@@ -25,11 +25,9 @@ public class HuffmanDemo
       System.out.println(decoded);      
    }
 
-   public static String encode(String toEncode, Map<Character, String> encodingMap)
-   {
+   public static String encode(String toEncode, Map<Character, String> encodingMap){
       String result = "";
-      for (int i = 0; i < toEncode.length(); i++)
-      {
+      for (int i = 0; i < toEncode.length(); i++){
          char ch = toEncode.charAt(i);
          result = result + encodingMap.get(ch);
       }

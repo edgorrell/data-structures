@@ -5,12 +5,12 @@ public class TreeDemo
 {
    public static void main(String[] args)
    {
-      Tree t1 = new Tree("Anne");
-      Tree t2 = new Tree("Peter");
+      Tree<String> t1 = new Tree<String>("Anne");
+      Tree<String> t2 = new Tree<String>("Peter");
       t1.addSubtree(t2);
-      Tree t3 = new Tree("Zara");
+      Tree<String> t3 = new Tree<String>("Zara");
       t1.addSubtree(t3);
-      Tree t4 = new Tree("Savannah");
+      Tree<String> t4 = new Tree<String>("Savannah");
       t2.addSubtree(t4);
       System.out.println("Size: " + t1.size());
    }
