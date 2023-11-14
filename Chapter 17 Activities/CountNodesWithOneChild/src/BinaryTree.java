@@ -92,6 +92,25 @@ public class BinaryTree
         return result;
     }
 
+    public int countOneChild(){
+        return countOneChild(root);
+    }
+
+    private int countOneChild(Node n){
+        int total = 0;
+        if(n.left == null ^ n.right == null){
+            total++;
+        }
+        if(!(n.left == null)){
+            total+= countOneChild(n.left);
+        }
+        if(!(n.right == null)){
+            total+= countOneChild(n.right);
+        }
+        
+        return total;
+    }
+
     /**
         Gets the right subtree of this tree.
         @return the right child of the root

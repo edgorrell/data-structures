@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 /**
     A tree in which each node has an arbitrary number of children.
@@ -11,7 +12,9 @@ public class Tree<T>{
         @param rootData the data for the root
     */
     public Tree(T rootData){
-        root = new Node<T>(rootData);        
+        root = new Node<T>();
+        root.data = rootData;
+        root.children = new ArrayList<Node<T>>();        
     }
 
     /**
@@ -19,6 +22,7 @@ public class Tree<T>{
     */
     public void addSubtree(Tree<T> subtree){
         this.root.children.add(subtree.root);
+        subtree.root.parent = this.root;
     }
 
     /**
@@ -29,13 +33,10 @@ public class Tree<T>{
         return this.root.size();
     }
         
-    static class Node<T>{
-        ArrayList<Node<T>> children = new ArrayList<Node<T>>();
-        T item;
-
-        public Node(T item){
-            this.item = item;
-        }
+    public static class Node<T> {
+        private T data;
+        private Node<T> parent;
+        private List<Node<T>> children;
 
         public int size(){
             int total = 1;
