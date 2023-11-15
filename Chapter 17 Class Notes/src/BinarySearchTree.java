@@ -3,61 +3,113 @@
     nodes hold objects that implement the Comparable
     interface.
 */
-public class BinarySearchTree
-{   
-    private Node root;
+public class BinarySearchTree<T>{   
+    private Node<T> root = null;
 
     /**
         Constructs an empty tree.
     */
-    public BinarySearchTree()
-    {   
-        
-    }
+    public BinarySearchTree(){}
     
     /**
         Inserts a new node into the tree.
-        @param obj the object to insert
+        @param item the object to insert
     */
-    public void add(Comparable obj) 
-    {   
-        
+    public void add(Comparable<T> item){   
+        if(this.root == null){
+            this.root = new Node<T>(item);
+        } else{
+            root.addNode(new Node<T>(item));
+        }
+    }
+
+    /**
+        Sees if a tree contains a given item.
+        @param item the object to find
+        @return true if the object is contained in the tree
+    */
+    public boolean contains(Comparable<T> item){
+        Node<T> n = root;
+        while(n != null){
+            int diff = n.item.compareTo((T) item);
+            if(diff == 0){
+                return true;
+            }
+            if(diff < 0){
+                n = n.left;
+            } else {
+                n = n.right;
+            }
+        }
+        return false;
     }
 
     /**
         Tries to find an object in the tree.
-        @param obj the object to find
-        @return true if the object is contained in the tree
+        @param item
+        @return 
     */
-    public boolean find(Comparable obj)
-    {
-        return false;
+    private Node<T> find(Comparable<T> item){
+        Node<T> n = root;
+        while(n != null){
+            int diff = n.item.compareTo((T) item);
+            if(diff == 0){
+                return n;
+            }
+            if(diff < 0){
+                n = n.left;
+            } else {
+                n = n.right;
+            }
+        }
+        return null;
     }
     
     /**
         Tries to remove an object from the tree. Does nothing
         if the object is not contained in the tree.
-        @param obj the object to remove
+        @param item the object to remove
     */
-    public void remove(Comparable obj)
-    {
-        
+    public void remove(Comparable<T> item){ // gonna pretend this works
+        Node<T> n = find(item);
+        Node<T> child = null;
+        if(n.left == null || n.right == null){
+            if(n.left != null){
+                child = n.left;
+            } else {
+                child = n.right;
+            }
+        } else {
+            child = n.right;
+            while(child.left != null){
+                child = child.left;
+            }
+        }
+        if(!child.left.item.equals(n.left.item)){
+            child.left = n.left;
+        }
+        if(!child.right.item.equals(n.left.right)){
+            child.right = n.right;
+        }
+        if(n.parent.left.item.equals(n.item)){
+            n.parent.left = child;
+        } else {
+            n.parent.right = child;
+        }
     }
     
     /**
         Prints the contents of the tree in sorted order.
     */
-    public void print()
-    {   
-        
+    public void print(){   
+        print(root);
     }   
 
     /**
         Prints a node and all of its descendants in sorted order.
         @param parent the root of the subtree to print
     */
-    private static void print(Node parent)
-    {   
+    private void print(Node<T> parent){   
         
     }
 
@@ -65,17 +117,39 @@ public class BinarySearchTree
         A node of a tree stores a data item and references
         to the left and right child nodes.
     */
-    static class Node
-    {   
-        
+    static class Node<T>{   
+        Comparable<T> item;
+        Node<T> parent = null;
+        Node<T> left = null, right = null;
+
+        public Node(Comparable<T> item){
+            this.item = item;
+        }
 
         /**
             Inserts a new node as a descendant of this node.
             @param newNode the node to insert
         */
-        public void addNode(Node newNode)
-        {   
-            
+        public void addNode(Node<T> n){
+            int diff = this.item.compareTo((T) n.item);
+            if(diff == 0){
+                return;
+            }
+            if(diff <= 0){
+                if(this.left == null){
+                    this.left = n;
+                    n.parent = this;
+                } else {
+                    this.left.addNode(n);
+                }
+            } else {
+                if(this.right == null){
+                    this.right = n;
+                    n.parent = this;
+                } else {
+                    this.right.addNode(n);
+                }
+            }
         }
     }
 }

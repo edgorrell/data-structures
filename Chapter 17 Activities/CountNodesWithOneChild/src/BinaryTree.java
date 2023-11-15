@@ -2,8 +2,7 @@
 /**
     A binary tree in which each node has two children.
 */
-public class BinaryTree
-{
+public class BinaryTree{
     private Node root;
 
     /**
@@ -15,8 +14,7 @@ public class BinaryTree
         Constructs a tree with one node and no children.
         @param rootData the data for the root
     */
-    public BinaryTree(Object rootData)
-    {
+    public BinaryTree(Object rootData){
         root = new Node();
         root.data = rootData;
         root.left = null;
@@ -29,27 +27,16 @@ public class BinaryTree
         @param left the left subtree
         @param right the right subtree
     */
-    public BinaryTree(Object rootData, BinaryTree left, BinaryTree right)
-    {
+    public BinaryTree(Object rootData, BinaryTree left, BinaryTree right){
         root = new Node();
         root.data = rootData;
 
-          if( left != null )
-          {
-                root.left = left.root;
-          }
-
-          if( right != null )
-          {
-                root.right = right.root;
-          }
-    }
-
-    class Node
-    {
-        public Object data;
-        public Node left;
-        public Node right;
+        if(left != null){
+          root.left = left.root;
+        }
+        if(right != null){
+          root.right = right.root;
+        }
     }
 
     /**
@@ -57,13 +44,32 @@ public class BinaryTree
         @param n a node or null
         @return the height of the subtree, or 0 if n is null
     */
-    private static int height(Node n)
-    {
+    private static int height(Node n){
         if (n == null) { return 0; }
         else { return 1 + Math.max(height(n.left), height(n.right)); }
     }
 
     /**
+        Gets the left subtree of this tree.
+        @return the left child of the root
+    */
+    public BinaryTree left(){
+        BinaryTree result = new BinaryTree();
+        result.root = root.left;
+        return result;
+    }
+
+    /**
+        Gets the right subtree of this tree.
+        @return the right child of the root
+    */
+    public BinaryTree right(){
+        BinaryTree result = new BinaryTree();
+        result.root = root.right;
+        return result;
+    }
+
+        /**
         Returns the height of this tree.
         @return the height
     */
@@ -81,17 +87,6 @@ public class BinaryTree
     */
     public Object data() { return root.data; }
 
-    /**
-        Gets the left subtree of this tree.
-        @return the left child of the root
-    */
-    public BinaryTree left()
-    {
-        BinaryTree result = new BinaryTree();
-        result.root = root.left;
-        return result;
-    }
-
     public int countOneChild(){
         return countOneChild(root);
     }
@@ -101,24 +96,19 @@ public class BinaryTree
         if(n.left == null ^ n.right == null){
             total++;
         }
-        if(!(n.left == null)){
+        if(n.left != null){
             total+= countOneChild(n.left);
         }
-        if(!(n.right == null)){
+        if(n.right != null){
             total+= countOneChild(n.right);
         }
-        
         return total;
     }
 
-    /**
-        Gets the right subtree of this tree.
-        @return the right child of the root
-    */
-    public BinaryTree right()
-    {
-        BinaryTree result = new BinaryTree();
-        result.root = root.right;
-        return result;
+
+    class Node{
+        public Object data;
+        public Node left;
+        public Node right;
     }
 }
