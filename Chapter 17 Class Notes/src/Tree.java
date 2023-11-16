@@ -25,6 +25,29 @@ public class Tree<T>{
         subtree.root.parent = this.root;
     }
 
+    /* 
+        traverses tree in pre-order
+        @param v: visitor to be invoked at each node
+    */ 
+    public void preorder(Visitor<T> v){
+        preorder(this.root, v);
+    }
+
+    /*
+        traverses the tree with a given root
+        @param n: root of the tree to traverse
+        @param v:  visitor to be invoked at each node
+     */
+    private void preorder(Node<T> n, Visitor<T> v){
+        if(n == null){
+            return;
+        }
+        v.visit(n.data);
+        for(Node<T> child : n.children){
+            preorder(child,v);
+        }
+    }
+
     /**
         Computes the size of this tree.
         @return the number of nodes in the tree
@@ -36,7 +59,7 @@ public class Tree<T>{
     public static class Node<T> {
         private T data;
         private Node<T> parent;
-        private List<Node<T>> children;
+        private ArrayList<Node<T>> children;
 
         public int size(){
             int total = 1;
@@ -45,5 +68,9 @@ public class Tree<T>{
             }
             return total;
         }
+    }
+
+    public interface Visitor<T>{
+        abstract void visit(T data);
     }
 }

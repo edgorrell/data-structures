@@ -72,7 +72,7 @@ public class BinarySearchTree<T>{
     */
     public void remove(Comparable<T> item){ // gonna pretend this works
         Node<T> n = find(item);
-        Node<T> child = null;
+        Node<T> child;
         if(n.left == null || n.right == null){
             if(n.left != null){
                 child = n.left;
@@ -84,11 +84,13 @@ public class BinarySearchTree<T>{
             while(child.left != null){
                 child = child.left;
             }
+            child.parent.left = null;
         }
-        if(!child.left.item.equals(n.left.item)){
+        child.parent = n.parent;
+        if(!n.left.item.equals(child.item)){
             child.left = n.left;
         }
-        if(!child.right.item.equals(n.left.right)){
+        if(!n.right.item.equals(child.item)){
             child.right = n.right;
         }
         if(n.parent.left.item.equals(n.item)){
@@ -102,7 +104,8 @@ public class BinarySearchTree<T>{
         Prints the contents of the tree in sorted order.
     */
     public void print(){   
-        print(root);
+        print(this.root);
+        System.out.println();
     }   
 
     /**
@@ -110,7 +113,12 @@ public class BinarySearchTree<T>{
         @param parent the root of the subtree to print
     */
     private void print(Node<T> parent){   
-        
+        if(parent == null){
+            return;
+        }
+        print(parent.left);
+        System.out.println(parent.item + " ");
+        print(parent.right);
     }
 
     /**
