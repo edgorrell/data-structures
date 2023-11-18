@@ -101,9 +101,16 @@ public class MorseCode {
      */
     public static String encode(String text) {
         StringBuffer morse = new StringBuffer(6*text.length());
-        
+        String letter;
         for(int i = 0; i < text.length(); i++){
-            morse.append(codeMap.get(text.toUpperCase().charAt(i)) + " ");
+            if(text.charAt(i) == ' '){
+                morse.append(" ");
+            }
+            letter = codeMap.get(text.toUpperCase().charAt(i)) + " ";
+            if(letter.equals("null ")){
+                letter = "  ";
+            }
+            morse.append(letter);
         }
         
         return morse.toString();
@@ -116,21 +123,26 @@ public class MorseCode {
      * Returns the plain text message.
      */
     public static String decode(String morse) {
-        StringBuffer text = new StringBuffer((int) Math.ceil(morse.length()));
-        Scanner scan = new Scanner(morse); scan.useDelimiter(" ");
+        StringBuffer text = new StringBuffer(1 + morse.length()/6);
+        String letter = "";
 
-        while(scan.hasNext()){
-            String letter = scan.next();
-            
-            for(Character key : codeMap.keySet()){
-                if(codeMap.get(key).equals(letter)){
-                    text.append(key);
-                    continue;
+        for(int i = 0; i < morse.length(); i++){
+            if(morse.charAt(i) == ' '){
+                for(Character key : codeMap.keySet()){
+                    if(codeMap.get(key).equals(letter)){
+                        text.append(key);
+                    }
                 }
+                if(i + 1 < morse.length() && morse.charAt(i + 1) == ' '){
+                    text.append(" ");
+                    i++;
+                }
+                letter = "";
+                continue;
             }
+            letter += morse.charAt(i);
         }
         
-        scan.close();
         return text.toString();
     }
 }
