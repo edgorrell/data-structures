@@ -124,23 +124,23 @@ public class MorseCode {
      */
     public static String decode(String morse) {
         StringBuffer text = new StringBuffer(1 + morse.length()/6);
-        String letter = "";
+        TreeNode n = decodeTree;
 
         for(int i = 0; i < morse.length(); i++){
             if(morse.charAt(i) == ' '){
-                for(Character key : codeMap.keySet()){
-                    if(codeMap.get(key).equals(letter)){
-                        text.append(key);
-                    }
-                }
+                text.append(n.getValue());
                 if(i + 1 < morse.length() && morse.charAt(i + 1) == ' '){
                     text.append(" ");
                     i++;
                 }
-                letter = "";
+                n = decodeTree;
                 continue;
             }
-            letter += morse.charAt(i);
+            if(morse.charAt(i) == DOT){
+                n = n.getLeft();
+            } else {
+                n = n.getRight();
+            }
         }
         
         return text.toString();
