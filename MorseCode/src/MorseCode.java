@@ -15,9 +15,8 @@ public class MorseCode {
 
     public static void start() {
         codeMap = new TreeMap<Character, String>();
-        decodeTree = new TreeNode(' ', null, null); // autoboxing
-        // put a space in the root of the decoding tree
-
+        decodeTree = new TreeNode(' ', null, null);
+        
         addSymbol('A', ".-");
         addSymbol('B', "-...");
         addSymbol('C', "-.-.");
@@ -75,7 +74,7 @@ public class MorseCode {
      * right. The node at the end of the path holds the symbol
      * for that code string.
      */
-    private static void treeInsert(char letter, String code) {
+    private static void treeInsert(char letter, String code){
         TreeNode n = decodeTree;
         for(int i = 0; i < code.length(); i++){
             if(code.charAt(i) == DOT){
@@ -108,7 +107,7 @@ public class MorseCode {
             }
             letter = codeMap.get(text.toUpperCase().charAt(i)) + " ";
             if(letter.equals("null ")){
-                letter = "  ";
+                letter = "";
             }
             morse.append(letter);
         }
